@@ -34,8 +34,29 @@ from runner.koan import *
 # Your goal is to write the score method.
 
 def score(dice):
-    # You need to write this method
-    pass
+    score = 0
+
+    dice_left_to_process = sorted(dice)[::-1]
+
+    while dice_left_to_process:
+        number = dice_left_to_process.pop()
+
+        numbers_left = len([n for n in dice_left_to_process if number == n])
+
+        if numbers_left >= 2:
+            if 1 == number:
+                score += 1000
+            else:
+                score += number * 100
+
+            dice_left_to_process.pop()
+            dice_left_to_process.pop()
+        elif 5 == number:
+            score += 50
+        elif 1 == number:
+            score += 100
+
+    return score
 
 
 class AboutScoringProject(Koan):
